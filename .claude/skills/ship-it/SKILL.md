@@ -40,7 +40,7 @@ Spawn an agent: `subagent_type: "general-purpose"`, `model: "sonnet"`, `effort: 
 
 > Review pull request #<n> in this repository (the current working directory). Invoke the `code-review` skill with the Skill tool, args `high <n>`. Follow its instructions, but do not post comments to GitHub and do not edit, commit or push anything. If the skill runs as a background agent, wait for its completion notification and include its findings; never reply before it has finished. Also check the diff against the project rules in `CLAUDE.md`, `.claude/skills/unslop/SKILL.md` and `.claude/skills/mine/SKILL.md`.
 >
-> Reply with every finding as: severity (important / pre_existing / nit), `file:line`, the problem, and a concrete failure scenario or rule broken. If there are no findings, reply exactly `NO FINDINGS`.
+> Reply with every finding as: severity (important / pre_existing / nit), breaking (yes / no: yes only if it crashes the mod, breaks Zen's media player, breaks the build or CI, or loses data), `file:line`, the problem, and a concrete failure scenario or rule broken. If there are no findings, reply exactly `NO FINDINGS`.
 
 ## 3. Fix (main agent, immediately)
 
@@ -53,18 +53,21 @@ For each finding:
 
 Then rerun the preconditions checks (step 0.2).
 
-## 4. Loop
+## 4. Loop only for breaking issues
 
-If you changed anything in step 3, go back to step 1 (Haiku commits and pushes the fixes), then step 2 (fresh Sonnet review of the updated PR).
+One review round is the default. Another round is justified only by a **breaking** finding: something that crashes the mod, breaks Zen's media player, breaks the build or CI, or loses or corrupts data. Nits, style, docs wording and pre-existing issues never trigger another round.
+
+- **The round had a breaking finding:** fix it (step 3), then go back to step 1 (Haiku commits and pushes) and step 2 (fresh Sonnet review), so the fix itself gets reviewed.
+- **Otherwise:** fix the cheap nits from step 3 in the same pass, have Haiku commit and push them (step 1), and stop. Do not review again.
 
 Stop when all of these hold:
 
-- The reviewer replies `NO FINDINGS`, or every remaining finding is a declined nit or pre-existing item with a written reason.
+- The latest review has no unfixed breaking finding. Remaining nits are either fixed or declined with a written reason.
 - `gh pr checks <n> --watch` passes.
 - The working tree is clean and pushed.
 
-Hard cap: **5 iterations**. If the loop hasn't converged by then, or the reviewer keeps raising the same finding you keep declining, stop and ask the user.
+Hard cap: **5 rounds**, reachable only while breaking findings keep appearing. If you hit it, or the reviewer keeps raising the same finding you keep declining, stop and ask the user.
 
 ## 5. Report
 
-Tell the user briefly: the PR link, the commits pushed (all iterations), what each review round found and what you fixed, anything declined and why, follow-ups for pre-existing issues, and the CI result. Never merge the PR; merging is the user's call.
+Tell the user briefly: the PR link, the commits pushed (all rounds), what each review round found and what you fixed, anything declined and why, follow-ups for pre-existing issues, and the CI result. Never merge the PR; merging is the user's call.
