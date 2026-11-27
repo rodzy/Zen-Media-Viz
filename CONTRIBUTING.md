@@ -25,6 +25,7 @@ npm test
 | `npm run format`        | Format everything with Prettier (`format:check` only reports)       |
 | `npm run build`         | Bundle `src/` into `zen-media-viz.uc.js`                            |
 | `npm run check:bundle`  | Fail if `zen-media-viz.uc.js` doesn't match a fresh build of `src/` |
+| `npm run spike`         | Print the Browser Console snippet described in `docs/spike.md`      |
 
 ## How the code is organized
 
