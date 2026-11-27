@@ -7,7 +7,7 @@ export default [
   },
   js.configs.recommended,
   {
-    files: ["src/**/*.js"],
+    files: ["src/**/*.js", "spike/**/*.js"],
     languageOptions: {
       ecmaVersion: "latest",
       sourceType: "module",
@@ -23,7 +23,7 @@ export default [
     },
   },
   {
-    files: ["*.js", "*.mjs", "scripts/**/*.js", "scripts/**/*.mjs"],
+    files: ["*.js", "*.mjs", "scripts/**/*.js", "scripts/**/*.mjs", "spike/**/*.mjs"],
     languageOptions: {
       ecmaVersion: "latest",
       sourceType: "module",

@@ -23,7 +23,8 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "build": "node build.mjs",
-    "check:bundle": "node build.mjs --check"
+    "check:bundle": "node build.mjs --check",
+    "spike": "node spike/build.mjs"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
