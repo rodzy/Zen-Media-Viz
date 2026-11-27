@@ -38,7 +38,7 @@ When it returns, verify yourself:
 
 Spawn an agent: `subagent_type: "general-purpose"`, `model: "sonnet"`, `effort: "high"`:
 
-> Review pull request #<n> in this repository (the current working directory). Invoke the `code-review` skill with the Skill tool, args `high <n>`. Follow its instructions, but do not post comments to GitHub and do not edit, commit or push anything. Also check the diff against the project rules in `CLAUDE.md`, `.claude/skills/unslop/SKILL.md` and `.claude/skills/mine/SKILL.md`.
+> Review pull request #<n> in this repository (the current working directory). Invoke the `code-review` skill with the Skill tool, args `high <n>`. Follow its instructions, but do not post comments to GitHub and do not edit, commit or push anything. If the skill runs as a background agent, wait for its completion notification and include its findings; never reply before it has finished. Also check the diff against the project rules in `CLAUDE.md`, `.claude/skills/unslop/SKILL.md` and `.claude/skills/mine/SKILL.md`.
 >
 > Reply with every finding as: severity (important / pre_existing / nit), `file:line`, the problem, and a concrete failure scenario or rule broken. If there are no findings, reply exactly `NO FINDINGS`.
 
