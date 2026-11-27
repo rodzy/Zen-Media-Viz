@@ -11,12 +11,12 @@ A Zen Browser mod, loaded by the Sine mod manager, that shows album artwork in Z
 - `npm test`: run all tests (Vitest). One file: `npx vitest run test/artwork.test.js`. By name: `npx vitest run -t "pickArtwork"`.
 - `npm run lint`, `npm run format` / `npm run format:check`
 - `npm run build`: bundle `src/` into `zen-media-viz.uc.js`
-- `npm run check:bundle`: rebuild and fail if the committed bundle is stale (CI runs this)
+- `npm run check:bundle`: rebuild in memory and fail if `zen-media-viz.uc.js` on disk differs (passes on an uncommitted rebuild; in CI the disk copy is the committed one)
 
 ## Architecture
 
 - `src/*.js` are ES modules. `build.mjs` (esbuild) bundles `src/index.js` into one IIFE, `zen-media-viz.uc.js`, at the repo root. **The bundle is generated but committed**: Sine installs straight from the GitHub repo and only executes `.uc.js` (not `.uc.mjs`). After changing `src/`, run `npm run build` and commit the bundle too. Never hand-edit it.
-- Sine reads `theme.json` at the repo root. Scripts listed under `scripts` with `include: ["chrome://browser/content/browser.xhtml"]` run once per browser window after its `load` event; `chrome.css` is applied as a user stylesheet. Sine can re-run the script into an already-open window when the mod is enabled, so the entry point must tear down any previous instance (`window.ZenMediaViz.destroy()`).
+- Sine integration (`theme.json`, `chrome.css`) arrives in Milestone 5; until then the mod can't be installed. Sine reads `theme.json` at the repo root. Scripts listed under `scripts` with `include: ["chrome://browser/content/browser.xhtml"]` run once per browser window after its `load` event; `chrome.css` is applied as a user stylesheet. Sine can re-run the script into an already-open window when the mod is enabled, so the entry point must tear down any previous instance (`window.ZenMediaViz.destroy()`).
 - **Injected globals:** logic modules never read `gBrowser`, `gZenMediaController`, `window` or `document` directly; they take them as parameters. Only `src/index.js` touches the real window. Tests pass fakes. DOM tests opt in with `// @vitest-environment happy-dom` (default environment is `node`).
 - Zen/Firefox APIs relied on (from `zen-browser/desktop` `src/zen/media/` and Firefox's `MediaController.webidl`):
   - Media cards: `#zen-media-controls-toolbar` > `.zen-media-card` (cloned from `#zen-media-card-template`) > `.zen-media-info-container` > `.zen-media-info-vbox` > `.zen-media-title` / `.zen-media-artist`. Zen sets only title and artist; it ignores artwork.

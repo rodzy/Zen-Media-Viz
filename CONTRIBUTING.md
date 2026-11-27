@@ -15,16 +15,16 @@ npm install
 npm test
 ```
 
-| Command                 | What it does                                                           |
-| ----------------------- | ---------------------------------------------------------------------- |
-| `npm test`              | Run the test suite once                                                |
-| `npm run test:watch`    | Re-run tests as you edit                                               |
-| `npx vitest run <file>` | Run one test file, e.g. `npx vitest run test/smoke.test.js`            |
-| `npx vitest run -t "x"` | Run only tests whose name matches `x`                                  |
-| `npm run lint`          | ESLint                                                                 |
-| `npm run format`        | Format everything with Prettier (`format:check` only reports)          |
-| `npm run build`         | Bundle `src/` into `zen-media-viz.uc.js`                               |
-| `npm run check:bundle`  | Rebuild and fail if the committed `zen-media-viz.uc.js` is out of date |
+| Command                 | What it does                                                        |
+| ----------------------- | ------------------------------------------------------------------- |
+| `npm test`              | Run the test suite once                                             |
+| `npm run test:watch`    | Re-run tests as you edit                                            |
+| `npx vitest run <file>` | Run one test file, e.g. `npx vitest run test/smoke.test.js`         |
+| `npx vitest run -t "x"` | Run only tests whose name matches `x`                               |
+| `npm run lint`          | ESLint                                                              |
+| `npm run format`        | Format everything with Prettier (`format:check` only reports)       |
+| `npm run build`         | Bundle `src/` into `zen-media-viz.uc.js`                            |
+| `npm run check:bundle`  | Fail if `zen-media-viz.uc.js` doesn't match a fresh build of `src/` |
 
 ## How the code is organized
 
@@ -57,6 +57,8 @@ Bug fixes start with a test that reproduces the bug.
 Some things can't be tested under Node: real XUL layout, the browser's content-security policy, Firefox's real `MediaController`. Those are covered by the manual checklist in [`docs/manual-testing.md`](docs/manual-testing.md). If your change affects them, add or update a checklist item and run it in a real Zen.
 
 ## Testing in Zen
+
+The mod becomes installable in Milestone 5 of the [roadmap](docs/roadmap.md), when `theme.json` lands. From then on:
 
 1. Install [Sine](https://github.com/CosmoCreeper/Sine) in Zen.
 2. In Sine's settings, turn on installing JavaScript from unofficial sources.

@@ -23,7 +23,7 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "build": "node build.mjs",
-    "check:bundle": "node build.mjs && git ls-files --error-unmatch zen-media-viz.uc.js >/dev/null && git diff --exit-code HEAD -- zen-media-viz.uc.js"
+    "check:bundle": "node build.mjs --check"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
