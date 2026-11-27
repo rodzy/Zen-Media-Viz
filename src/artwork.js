@@ -1,4 +1,3 @@
-const USABLE_PROTOCOLS = new Set(["https:", "data:"]);
 const SIZE_PATTERN = /^([1-9]\d*)x([1-9]\d*)$/i;
 const SCALABLE_SIZE = { widthPx: Infinity, heightPx: Infinity };
 
@@ -18,8 +17,13 @@ export function parseSizes(sizes = "") {
     .filter((size) => size !== null);
 }
 
+const isImageDataUrl = ({ protocol, pathname }) =>
+  protocol === "data:" && pathname.toLowerCase().startsWith("image/");
+
 export function isUsableSrc(src) {
-  return USABLE_PROTOCOLS.has(URL.parse(src)?.protocol);
+  const url = URL.parse(src);
+  if (!url) return false;
+  return url.protocol === "https:" || isImageDataUrl(url);
 }
 
 function largestWidthPx(sizes) {

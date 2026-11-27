@@ -41,8 +41,12 @@ describe("isUsableSrc", () => {
     expect(isUsableSrc("https://example.com/cover.jpg")).toBe(true);
   });
 
-  it("accepts data URLs", () => {
+  it("accepts image data URLs", () => {
     expect(isUsableSrc("data:image/png;base64,iVBORw0KGgo=")).toBe(true);
+  });
+
+  it("rejects data URLs that are not images", () => {
+    expect(isUsableSrc("data:text/html,<p>hi</p>")).toBe(false);
   });
 
   it.each([
