@@ -10,6 +10,6 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 - Project tooling: Vitest, ESLint, Prettier, esbuild bundling and GitHub Actions CI.
 - Contributor docs: contributing guide, code of conduct, security policy, issue and pull request templates.
-- Code style guide as the `unslop` Claude skill, summarized in the contributing guide.
+- Claude Code project skills: `unslop` (code style, summarized in the contributing guide), `mine` (attribution policy) and `ship-it` (commit, review and fix loop).
 
 [Unreleased]: https://github.com/rodzy/Zen-Media-Viz/commits/main
