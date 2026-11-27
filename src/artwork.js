@@ -26,20 +26,23 @@ export function isUsableSrc(src) {
   return url.protocol === "https:" || isImageDataUrl(url);
 }
 
-function largestWidthPx(sizes) {
-  return parseSizes(sizes).reduce((maxPx, { widthPx }) => Math.max(maxPx, widthPx), 0);
+function largestEdgePx(sizes) {
+  return parseSizes(sizes).reduce(
+    (maxPx, { widthPx, heightPx }) => Math.max(maxPx, Math.min(widthPx, heightPx)),
+    0,
+  );
 }
 
-const narrowest = (images) =>
-  images.reduce((best, image) => (image.widthPx < best.widthPx ? image : best));
-const widest = (images) =>
-  images.reduce((best, image) => (image.widthPx > best.widthPx ? image : best));
+const smallest = (images) =>
+  images.reduce((best, image) => (image.edgePx < best.edgePx ? image : best));
+const largest = (images) =>
+  images.reduce((best, image) => (image.edgePx > best.edgePx ? image : best));
 
 export function pickArtwork(artwork, { minPx }) {
   const candidates = artwork
     .filter(({ src }) => isUsableSrc(src))
-    .map(({ src, sizes }) => ({ src, widthPx: largestWidthPx(sizes) }));
+    .map(({ src, sizes }) => ({ src, edgePx: largestEdgePx(sizes) }));
   if (candidates.length === 0) return null;
-  const wideEnough = candidates.filter(({ widthPx }) => widthPx >= minPx);
-  return (wideEnough.length > 0 ? narrowest(wideEnough) : widest(candidates)).src;
+  const bigEnough = candidates.filter(({ edgePx }) => edgePx >= minPx);
+  return (bigEnough.length > 0 ? smallest(bigEnough) : largest(candidates)).src;
 }

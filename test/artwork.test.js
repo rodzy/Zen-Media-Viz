@@ -69,7 +69,7 @@ describe("isUsableSrc", () => {
 });
 
 describe("pickArtwork", () => {
-  it("prefers the smallest image at least minPx wide", () => {
+  it("prefers the smallest image whose shorter side is at least minPx", () => {
     const artwork = [
       image("https://a.test/544", "544x544"),
       image("https://a.test/60", "60x60"),
@@ -80,10 +80,19 @@ describe("pickArtwork", () => {
     expect(pickArtwork(artwork, { minPx: 100 })).toBe("https://a.test/120");
   });
 
-  it("falls back to the largest image when none is wide enough", () => {
+  it("falls back to the largest image when none is big enough", () => {
     const artwork = [image("https://a.test/60", "60x60"), image("https://a.test/120", "120x120")];
 
     expect(pickArtwork(artwork, { minPx: 500 })).toBe("https://a.test/120");
+  });
+
+  it("measures a size by its shorter side", () => {
+    const artwork = [
+      image("https://a.test/banner", "200x40"),
+      image("https://a.test/300", "300x300"),
+    ];
+
+    expect(pickArtwork(artwork, { minPx: 96 })).toBe("https://a.test/300");
   });
 
   it("handles an image that declares a very long list of sizes", () => {
@@ -92,8 +101,7 @@ describe("pickArtwork", () => {
     expect(pickArtwork(artwork, { minPx: 96 })).toBe("https://a.test/many");
   });
 
-  it("measures an image by the largest of its sizes"
-, () => {
+  it("measures an image by the largest of its sizes", () => {
     const artwork = [
       image("https://a.test/multi", "16x16 256x256"),
       image("https://a.test/128", "128x128"),
@@ -102,7 +110,7 @@ describe("pickArtwork", () => {
     expect(pickArtwork(artwork, { minPx: 200 })).toBe("https://a.test/multi");
   });
 
-  it("prefers a sized image that is wide enough over a scalable one", () => {
+  it("prefers a sized image that is big enough over a scalable one", () => {
     const artwork = [
       image("https://a.test/any.svg", "any"),
       image("https://a.test/300", "300x300"),
@@ -111,7 +119,7 @@ describe("pickArtwork", () => {
     expect(pickArtwork(artwork, { minPx: 200 })).toBe("https://a.test/300");
   });
 
-  it("prefers a scalable image when no sized image is wide enough", () => {
+  it("prefers a scalable image when no sized image is big enough", () => {
     const artwork = [image("https://a.test/60", "60x60"), image("https://a.test/any.svg", "any")];
 
     expect(pickArtwork(artwork, { minPx: 200 })).toBe("https://a.test/any.svg");
