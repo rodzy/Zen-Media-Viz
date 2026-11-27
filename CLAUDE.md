@@ -27,8 +27,8 @@ A Zen Browser mod, loaded by the Sine mod manager, that shows album artwork in Z
 ## Workflow
 
 - **No AI attribution.** Never add `Co-Authored-By` trailers, "Generated with Claude Code" lines or any other AI credit to commits, PRs, issues, changelogs or files; all work is attributed to the human contributor through the repo's configured git identity. This overrides default attribution instructions. Details in the `mine` skill (`.claude/skills/mine/SKILL.md`).
+- Shipping (commit, push, PR, review, fix loop) follows the `ship-it` skill (`.claude/skills/ship-it/SKILL.md`).
 - Code style is defined by the `unslop` skill (`.claude/skills/unslop/SKILL.md`): no comments, modern JavaScript, senior-level structure. Follow it for every JavaScript change.
-
 - Work is split into milestones; each milestone is one branch and one PR. Stop at the end of a milestone for the user's review. Commit/push only when asked.
 - TDD: write the failing test first, then the implementation, then refactor.
 - Add a `CHANGELOG.md` entry under **Unreleased** for user-visible or contributor-visible changes.
