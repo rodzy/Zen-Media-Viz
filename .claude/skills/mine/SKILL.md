@@ -25,4 +25,4 @@ The person running the session owns the work and the plan that paid for it. Ever
 
 ## Before finishing
 
-Re-read every commit message and PR body you produced and confirm none contains `Co-Authored-By`, "Claude", "Anthropic", "Generated with" or a 🤖 marker.
+Re-read every commit message and PR body you produced and confirm none contains a `Co-Authored-By` trailer naming an AI, a "Generated with" line, a 🤖 marker, or text crediting Claude, Anthropic or any AI with the work. Referring to project files such as `CLAUDE.md` or `.claude/skills/` is not attribution.

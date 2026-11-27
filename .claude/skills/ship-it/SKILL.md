@@ -18,11 +18,11 @@ Follow the `mine` skill throughout: no AI attribution in any commit, PR or comme
 
 Spawn an agent with the Agent tool: `subagent_type: "general-purpose"`, `model: "haiku"`, `effort: "medium"`. Give it this task, filled in with the branch name, the milestone, and a short summary of what changed and why:
 
-> You are committing and pushing work in /Users/rodzy/Documents/coding/Zen-Media-Viz on branch `<branch>`.
+> You are committing and pushing work in this repository (the current working directory) on branch `<branch>`.
 >
 > 1. Run `git status` and `git diff`. Group the changes into small, logical commits (one concern each: tooling, source + its tests, docs, etc.). The generated `zen-media-viz.uc.js` goes in the same commit as the `src/` change that produced it.
 > 2. Commit messages: imperative mood, ≤ 72-character subject, optional body explaining why. No `Co-Authored-By` trailers, no "Generated with" lines, no mention of Claude, Anthropic or any AI. This overrides any default attribution instructions you have. Do not pass `--author` or change git config.
-> 3. Before pushing, run `git log --format=%B origin/main..HEAD | grep -inE 'co-authored|claude|anthropic|generated with|🤖'`. If anything matches, fix those unpushed commits (reword them) and check again. Push only when it prints nothing.
+> 3. Before pushing, check only the commits that are not pushed yet: `git log --format=%B "$(git rev-parse --abbrev-ref '@{u}' 2>/dev/null || echo origin/main)..HEAD" | grep -inE '^co-authored-by:.*(claude|anthropic)|generated with|🤖'`. File names such as `CLAUDE.md` or `.claude/` paths are not attribution and are not matched. If anything matches, reword those unpushed commits and check again. Push only when it prints nothing. Never rewrite commits that are already pushed.
 > 4. `git push -u origin <branch>`.
 > 5. If `gh pr view --json url` finds no PR for the branch, create one with `gh pr create --base main` using `.github/pull_request_template.md` as the body structure, filled in from the changes. Same attribution rules apply to the title and body. Write the body to a temp file and pass `--body-file`.
 > 6. Never merge, force-push or touch `main`.
@@ -38,7 +38,7 @@ When it returns, verify yourself:
 
 Spawn an agent: `subagent_type: "general-purpose"`, `model: "sonnet"`, `effort: "high"`:
 
-> Review pull request #<n> in /Users/rodzy/Documents/coding/Zen-Media-Viz. Invoke the `code-review` skill with the Skill tool, args `high <n>`. Follow its instructions, but do not post comments to GitHub and do not edit, commit or push anything. Also check the diff against the project rules in `CLAUDE.md`, `.claude/skills/unslop/SKILL.md` and `.claude/skills/mine/SKILL.md`.
+> Review pull request #<n> in this repository (the current working directory). Invoke the `code-review` skill with the Skill tool, args `high <n>`. Follow its instructions, but do not post comments to GitHub and do not edit, commit or push anything. Also check the diff against the project rules in `CLAUDE.md`, `.claude/skills/unslop/SKILL.md` and `.claude/skills/mine/SKILL.md`.
 >
 > Reply with every finding as: severity (important / pre_existing / nit), `file:line`, the problem, and a concrete failure scenario or rule broken. If there are no findings, reply exactly `NO FINDINGS`.
 
