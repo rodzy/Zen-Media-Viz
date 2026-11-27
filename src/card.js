@@ -10,6 +10,7 @@ function createArtwork(container) {
   const image = container.ownerDocument.createElementNS(HTML_NS, "img");
   image.className = ARTWORK_CLASS;
   image.alt = "";
+  image.setAttribute("referrerpolicy", "no-referrer");
   image.addEventListener("load", () => {
     image.hidden = false;
   });

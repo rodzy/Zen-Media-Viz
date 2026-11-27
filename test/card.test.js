@@ -64,7 +64,16 @@ describe("showArtwork", () => {
 
     image.dispatchEvent(new Event("error"));
 
+    expect([...artworkOf(card)]).toEqual([image]);
     expect(image.hidden).toBe(true);
+  });
+
+  it("sends no referrer when fetching the artwork", () => {
+    const card = recordedCard();
+
+    showArtwork(card, COVER);
+
+    expect(artworkOf(card)[0].getAttribute("referrerpolicy")).toBe("no-referrer");
   });
 
   it("reuses the image when the artwork changes", () => {
