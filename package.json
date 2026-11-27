@@ -1,0 +1,37 @@
+{
+  "name": "zen-media-viz",
+  "version": "0.0.0",
+  "private": true,
+  "description": "A Zen Browser mod that shows album artwork in the sidebar media player.",
+  "license": "MIT",
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rodzy/Zen-Media-Viz.git"
+  },
+  "bugs": {
+    "url": "https://github.com/rodzy/Zen-Media-Viz/issues"
+  },
+  "homepage": "https://github.com/rodzy/Zen-Media-Viz#readme",
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "build": "node build.mjs",
+    "check:bundle": "node build.mjs && git diff --exit-code -- zen-media-viz.uc.js"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "esbuild": "^0.28.2",
+    "eslint": "^10.15.0",
+    "globals": "^17.14.0",
+    "happy-dom": "^21.0.4",
+    "prettier": "^3.10.1",
+    "vitest": "^5.1.2"
+  }
+}
