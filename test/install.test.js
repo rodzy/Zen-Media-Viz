@@ -51,6 +51,24 @@ describe("install", () => {
     expect(artworkCount()).toBe(1);
   });
 
+  it("starts again and logs when the previous instance fails to tear down", () => {
+    mountToolbar();
+    const error = vi.spyOn(console, "error").mockImplementation(() => {});
+    const failure = new Error("stale");
+    const target = fakeWindow({
+      ZenMediaViz: {
+        destroy: () => {
+          throw failure;
+        },
+      },
+    });
+
+    install(target);
+
+    expect(error).toHaveBeenCalledWith("[zen-media-viz]", failure);
+    expect(artworkCount()).toBe(1);
+  });
+
   it("removes the artwork and the global on destroy", () => {
     mountToolbar();
     const target = fakeWindow();

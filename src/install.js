@@ -1,8 +1,16 @@
 import { logError } from "./log.js";
 import { startMediaViz } from "./runtime.js";
 
+function destroyPrevious(window) {
+  try {
+    window.ZenMediaViz?.destroy();
+  } catch (error) {
+    logError(error);
+  }
+}
+
 export function install(window) {
-  window.ZenMediaViz?.destroy();
+  destroyPrevious(window);
   try {
     const mediaViz = startMediaViz({ window, gBrowser: window.gBrowser });
     const handle = {
