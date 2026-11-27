@@ -27,7 +27,7 @@ Write code the way a senior engineer would ship it: small, exact, self-explanato
 
 ## Modern JavaScript
 
-- ES modules only. Named exports; no default exports.
+- ES modules only. Named exports; no default exports, except in tool config files whose tool requires one (`eslint.config.js`, `vitest.config.js`).
 - `const` by default, `let` only when reassigned, never `var`.
 - Arrow functions for callbacks and small helpers; `function` declarations for top-level module functions.
 - Optional chaining `?.` and nullish coalescing `??` / `??=` instead of manual guards and `||` defaults.
