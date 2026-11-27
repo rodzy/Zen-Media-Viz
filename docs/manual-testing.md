@@ -13,3 +13,14 @@ Items are added as features land.
 ## Spike
 
 - [ ] Pasting the `npm run spike` snippet into the Browser Console logs `[zen-media-viz] Spike report copied to the clipboard.` and the clipboard holds the JSON report.
+
+## Artwork
+
+Allow JavaScript from unofficial sources in Sine's settings, install the mod from this repository, and play a track with artwork (for example on [YouTube Music](https://music.youtube.com)) in one tab while another tab is selected.
+
+- [ ] The media card in the sidebar shows the track's artwork next to the title, and no `[zen-media-viz]` errors appear in the Browser Console.
+- [ ] Skipping to the next track replaces the artwork with the new track's.
+- [ ] With two tabs playing different tracks, each card shows its own track's artwork.
+- [ ] A track without artwork shows no thumbnail and no broken image.
+- [ ] Disabling the mod in Sine removes the artwork without a restart; enabling it again brings it back, with only one thumbnail per card.
+- [ ] Opening a new window shows artwork there too.
