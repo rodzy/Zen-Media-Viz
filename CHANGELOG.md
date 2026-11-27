@@ -11,3 +11,5 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - Project tooling: Vitest, ESLint, Prettier, esbuild bundling and GitHub Actions CI.
 - Contributor docs: contributing guide, code of conduct, security policy, issue and pull request templates.
 - Code style guide as the `unslop` Claude skill, summarized in the contributing guide.
+
+[Unreleased]: https://github.com/rodzy/Zen-Media-Viz/commits/main
