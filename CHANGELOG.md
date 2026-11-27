@@ -12,6 +12,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - Contributor docs: contributing guide, code of conduct, security policy, issue and pull request templates.
 - Spike: `npm run spike` prints a read-only Browser Console snippet that reports Zen's media card DOM and media controller metadata ([docs/spike.md](docs/spike.md)).
 - Test fixture recorded with the spike on Zen 1.24.3b, with tests that pin the media card DOM, metadata and CSP facts the mod relies on.
+- Artwork selection (`src/artwork.js`): parses Media Session `sizes`, keeps only `https:` and image `data:` sources and picks the smallest image whose shorter side is big enough, falling back to the largest.
 - Claude Code project skills: `unslop` (code style, summarized in the contributing guide), `mine` (attribution policy) and `ship-it` (commit, review and fix loop).
 
 [Unreleased]: https://github.com/rodzy/Zen-Media-Viz/commits/main
