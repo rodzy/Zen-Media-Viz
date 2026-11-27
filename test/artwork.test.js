@@ -86,7 +86,14 @@ describe("pickArtwork", () => {
     expect(pickArtwork(artwork, { minPx: 500 })).toBe("https://a.test/120");
   });
 
-  it("measures an image by the largest of its sizes", () => {
+  it("handles an image that declares a very long list of sizes", () => {
+    const artwork = [image("https://a.test/many", Array(300_000).fill("1x1").join(" "))];
+
+    expect(pickArtwork(artwork, { minPx: 96 })).toBe("https://a.test/many");
+  });
+
+  it("measures an image by the largest of its sizes"
+, () => {
     const artwork = [
       image("https://a.test/multi", "16x16 256x256"),
       image("https://a.test/128", "128x128"),

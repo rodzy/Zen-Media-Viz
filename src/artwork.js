@@ -27,7 +27,7 @@ export function isUsableSrc(src) {
 }
 
 function largestWidthPx(sizes) {
-  return Math.max(0, ...parseSizes(sizes).map(({ widthPx }) => widthPx));
+  return parseSizes(sizes).reduce((maxPx, { widthPx }) => Math.max(maxPx, widthPx), 0);
 }
 
 const narrowest = (images) =>
