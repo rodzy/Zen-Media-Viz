@@ -1,0 +1,12 @@
+.zen-media-viz-artwork {
+  flex: none;
+  width: 36px;
+  height: 36px;
+  margin-inline-end: 8px;
+  border-radius: 4px;
+  object-fit: cover;
+}
+
+.zen-media-viz-artwork[hidden] {
+  display: none;
+}

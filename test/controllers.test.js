@@ -1,5 +1,5 @@
 // @vitest-environment happy-dom
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import { matchCards, mediaSessions, readCardTrack, readMetadata } from "../src/controllers.js";
 import report from "./fixtures/zen-1.24.3b.json" with { type: "json" };
 
@@ -80,6 +80,23 @@ describe("mediaSessions", () => {
     const tabs = [tab(inactiveController()), tab(controller(track("Song", "Band")))];
 
     expect(mediaSessions({ tabs }).map(({ metadata }) => metadata.title)).toEqual(["Song"]);
+  });
+
+  it("logs and skips a tab whose controller fails, keeping the other tabs", () => {
+    const error = vi.spyOn(console, "error").mockImplementation(() => {});
+    const failure = new TypeError("boom");
+    const broken = {
+      getMetadata: () => {
+        throw failure;
+      },
+    };
+    const tabs = [tab(broken), tab(controller(track("Song", "Band")))];
+
+    const titles = mediaSessions({ tabs }).map(({ metadata }) => metadata.title);
+
+    expect(titles).toEqual(["Song"]);
+    expect(error).toHaveBeenCalledWith("[zen-media-viz]", failure);
+    error.mockRestore();
   });
 
   it("skips tabs without a browser, browsing context or controller", () => {

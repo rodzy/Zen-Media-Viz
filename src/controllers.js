@@ -1,3 +1,5 @@
+import { logError } from "./log.js";
+
 const NOT_AVAILABLE = "NS_ERROR_NOT_AVAILABLE";
 const TITLE_SELECTOR = ".zen-media-title";
 const ARTIST_SELECTOR = ".zen-media-artist";
@@ -14,8 +16,13 @@ export function readMetadata(controller) {
 function sessionOf({ linkedBrowser: browser }) {
   const controller = browser?.browsingContext?.mediaController;
   if (!controller) return null;
-  const metadata = readMetadata(controller);
-  return metadata && { browser, metadata };
+  try {
+    const metadata = readMetadata(controller);
+    return metadata && { browser, metadata };
+  } catch (error) {
+    logError(error);
+    return null;
+  }
 }
 
 export function mediaSessions({ tabs }) {

@@ -19,7 +19,7 @@ npm test
 | ----------------------- | ------------------------------------------------------------------- |
 | `npm test`              | Run the test suite once                                             |
 | `npm run test:watch`    | Re-run tests as you edit                                            |
-| `npx vitest run <file>` | Run one test file, e.g. `npx vitest run test/smoke.test.js`         |
+| `npx vitest run <file>` | Run one test file, e.g. `npx vitest run test/artwork.test.js`       |
 | `npx vitest run -t "x"` | Run only tests whose name matches `x`                               |
 | `npm run lint`          | ESLint                                                              |
 | `npm run format`        | Format everything with Prettier (`format:check` only reports)       |
@@ -60,7 +60,7 @@ Some things can't be tested under Node: real XUL layout, the browser's content-s
 
 ## Testing in Zen
 
-The mod becomes installable in Milestone 5 of the [roadmap](docs/roadmap.md), when `theme.json` lands. From then on:
+To try your changes in a real browser:
 
 1. Install [Sine](https://github.com/CosmoCreeper/Sine) in Zen.
 2. In Sine's settings, turn on installing JavaScript from unofficial sources.
