@@ -9,8 +9,8 @@ The first release is built in milestones. Each milestone is one pull request, wr
 | 2   | Artwork selection           | `src/artwork.js`: parse `sizes`, filter to usable `https:`/`data:` sources, pick the best image                                        | Done   |
 | 3   | Controller matching         | `src/controllers.js`: safely read metadata from each tab's media controller and match it to a media card                               | Done   |
 | 4   | Card DOM                    | `src/card.js`: add, update and remove the thumbnail element in a media card                                                            | Done   |
-| 5   | Runtime wiring & Sine       | Watch cards and metadata changes, clean teardown, `theme.json`, first run inside Zen                                                   | Next   |
-| 6   | Styling & polish            | `chrome.css` for the thumbnail, narrow-sidebar and collapsed states, manual checklist                                                  |        |
+| 5   | Runtime wiring & Sine       | Watch cards and metadata changes, clean teardown, `theme.json`, first run inside Zen                                                   | Done   |
+| 6   | Styling & polish            | `chrome.css` for the thumbnail, narrow-sidebar and collapsed states, manual checklist                                                  | Next   |
 | 7   | Release v0.1.0              | Install guide, screenshot, version bump and tag                                                                                        |        |
 
 Ideas for after v0.1.0 are tracked as [issues](https://github.com/rodzy/Zen-Media-Viz/issues).
