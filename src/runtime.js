@@ -24,34 +24,42 @@ function renderArtwork(cards, sessions, { minPx }) {
   }
 }
 
+function controllerWatcher(onChange, { signal }) {
+  const watched = new WeakSet();
+  return ({ browser }) => {
+    const controller = browser.browsingContext.mediaController;
+    if (watched.has(controller)) return;
+    watched.add(controller);
+    controller.addEventListener("metadatachange", onChange, { signal });
+  };
+}
+
+function observeTrackChanges({ MutationObserver }, toolbar, onChange) {
+  const observer = new MutationObserver((records) => {
+    if (records.some((record) => isTrackChange(toolbar, record))) onChange();
+  });
+  observer.observe(toolbar, WATCHED_MUTATIONS);
+  return observer;
+}
+
 export function startMediaViz({ window, gBrowser }) {
   const toolbar = window.document.querySelector(TOOLBAR_SELECTOR);
   if (!toolbar) throw new Error(`${TOOLBAR_SELECTOR} not found`);
   const teardown = new AbortController();
-  const watchedControllers = new WeakSet();
 
-  const watchController = (controller) => {
-    if (watchedControllers.has(controller)) return;
-    watchedControllers.add(controller);
-    controller.addEventListener("metadatachange", refresh, { signal: teardown.signal });
-  };
-
-  function refresh() {
+  const refresh = () => {
     try {
       const sessions = mediaSessions(gBrowser);
-      sessions.forEach(({ browser }) => watchController(browser.browsingContext.mediaController));
+      sessions.forEach(watchController);
       renderArtwork(cardsIn(toolbar), sessions, {
         minPx: ARTWORK_CSS_PX * window.devicePixelRatio,
       });
     } catch (error) {
       logError(error);
     }
-  }
-
-  const observer = new window.MutationObserver((records) => {
-    if (records.some((record) => isTrackChange(toolbar, record))) refresh();
-  });
-  observer.observe(toolbar, WATCHED_MUTATIONS);
+  };
+  const watchController = controllerWatcher(refresh, teardown);
+  const observer = observeTrackChanges(window, toolbar, refresh);
   refresh();
 
   return {

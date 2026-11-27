@@ -94,8 +94,13 @@
   function sessionOf({ linkedBrowser: browser }) {
     const controller = browser?.browsingContext?.mediaController;
     if (!controller) return null;
-    const metadata = readMetadata(controller);
-    return metadata && { browser, metadata };
+    try {
+      const metadata = readMetadata(controller);
+      return metadata && { browser, metadata };
+    } catch (error) {
+      logError(error);
+      return null;
+    }
   }
   function mediaSessions({ tabs }) {
     return [...tabs].map(sessionOf).filter((session) => session !== null);
@@ -137,31 +142,39 @@
       showArtwork(card, pickArtwork(artwork, { minPx }));
     }
   }
+  function controllerWatcher(onChange, { signal }) {
+    const watched = /* @__PURE__ */ new WeakSet();
+    return ({ browser }) => {
+      const controller = browser.browsingContext.mediaController;
+      if (watched.has(controller)) return;
+      watched.add(controller);
+      controller.addEventListener("metadatachange", onChange, { signal });
+    };
+  }
+  function observeTrackChanges({ MutationObserver }, toolbar, onChange) {
+    const observer = new MutationObserver((records) => {
+      if (records.some((record) => isTrackChange(toolbar, record))) onChange();
+    });
+    observer.observe(toolbar, WATCHED_MUTATIONS);
+    return observer;
+  }
   function startMediaViz({ window: window2, gBrowser }) {
     const toolbar = window2.document.querySelector(TOOLBAR_SELECTOR);
     if (!toolbar) throw new Error(`${TOOLBAR_SELECTOR} not found`);
     const teardown = new AbortController();
-    const watchedControllers = /* @__PURE__ */ new WeakSet();
-    const watchController = (controller) => {
-      if (watchedControllers.has(controller)) return;
-      watchedControllers.add(controller);
-      controller.addEventListener("metadatachange", refresh, { signal: teardown.signal });
-    };
-    function refresh() {
+    const refresh = () => {
       try {
         const sessions = mediaSessions(gBrowser);
-        sessions.forEach(({ browser }) => watchController(browser.browsingContext.mediaController));
+        sessions.forEach(watchController);
         renderArtwork(cardsIn(toolbar), sessions, {
           minPx: ARTWORK_CSS_PX * window2.devicePixelRatio
         });
       } catch (error) {
         logError(error);
       }
-    }
-    const observer = new window2.MutationObserver((records) => {
-      if (records.some((record) => isTrackChange(toolbar, record))) refresh();
-    });
-    observer.observe(toolbar, WATCHED_MUTATIONS);
+    };
+    const watchController = controllerWatcher(refresh, teardown);
+    const observer = observeTrackChanges(window2, toolbar, refresh);
     refresh();
     return {
       destroy() {
@@ -173,8 +186,15 @@
   }
 
   // src/install.js
+  function destroyPrevious(window2) {
+    try {
+      window2.ZenMediaViz?.destroy();
+    } catch (error) {
+      logError(error);
+    }
+  }
   function install(window2) {
-    window2.ZenMediaViz?.destroy();
+    destroyPrevious(window2);
     try {
       const mediaViz = startMediaViz({ window: window2, gBrowser: window2.gBrowser });
       const handle = {
