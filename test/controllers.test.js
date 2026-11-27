@@ -145,6 +145,28 @@ describe("matchCards", () => {
     expect(matches.has(second)).toBe(false);
   });
 
+  it("matches each card to its own session whatever order the sessions come in", () => {
+    const songCard = card("Song", "Band");
+    const otherCard = card("Other", "Band");
+    const song = session("Song", "Band");
+    const other = session("Other", "Band");
+
+    const matches = matchCards([songCard, otherCard], [other, song]);
+
+    expect(matches).toEqual(
+      new Map([
+        [songCard, song],
+        [otherCard, other],
+      ]),
+    );
+  });
+
+  it("leaves a card unmatched when its tab's controller has gone inactive", () => {
+    const tabs = [tab(inactiveController()), tab(controller(track("Other", "Band")))];
+
+    expect(matchCards([card("Song", "Band")], mediaSessions({ tabs })).size).toBe(0);
+  });
+
   it("does not match a card that shows no title yet", () => {
     expect(matchCards([card("", "")], [session("", "")]).size).toBe(0);
   });
