@@ -69,6 +69,14 @@ function describeTab(tab) {
   };
 }
 
+function describeTabSafely(tab) {
+  try {
+    return describeTab(tab);
+  } catch ({ name, message }) {
+    return { browserId: tab.linkedBrowser.browserId, error: { name, message } };
+  }
+}
+
 function describeControllers(tabs) {
   const { active = [], inactive = [] } = Object.groupBy([...tabs].filter(controllerOf), (tab) =>
     controllerOf(tab).isActive ? "active" : "inactive",
@@ -76,7 +84,7 @@ function describeControllers(tabs) {
   const [firstInactive] = inactive;
 
   return {
-    active: active.map(describeTab),
+    active: active.map(describeTabSafely),
     inactiveCount: inactive.length,
     inactiveMetadataError: firstInactive
       ? (readMetadata(controllerOf(firstInactive)).metadataError ?? null)

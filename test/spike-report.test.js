@@ -219,6 +219,22 @@ describe("collectReport media controllers", () => {
     expect(controllers.inactiveMetadataError).toBeNull();
   });
 
+  it("records the error for a tab that throws while being described and keeps the others", () => {
+    const failing = fakeController({ id: 4 });
+    Object.defineProperty(failing, "supportedKeys", {
+      get() {
+        throw Object.assign(new Error("Gone"), { name: "NS_ERROR_FAILURE" });
+      },
+    });
+
+    const { active } = collect({ tabs: [fakeTab({ controller: failing }), fakeTab()] }).controllers;
+
+    expect(active).toEqual([
+      { browserId: 7, error: { name: "NS_ERROR_FAILURE", message: "Gone" } },
+      expect.objectContaining({ id: 1, metadata: {} }),
+    ]);
+  });
+
   it("skips tabs whose browser has no browsing context", () => {
     const { controllers } = collect({ tabs: [fakeTab({ controller: null })] });
 
