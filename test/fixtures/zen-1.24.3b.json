@@ -1,0 +1,109 @@
+{
+  "environment": {
+    "name": "Zen",
+    "version": "1.24.3b",
+    "platformVersion": "160.0.1",
+    "os": "Darwin"
+  },
+  "csp": "script-src chrome: moz-src: resource:; frame-src chrome:; object-src 'none';",
+  "toolbar": {
+    "hasTemplate": true,
+    "cards": [
+      {
+        "hidden": true,
+        "title": "Flames of Fate",
+        "artist": "DJ Noriken",
+        "titlePath": [
+          "toolbaritem.zen-media-card.playing",
+          "vbox.zen-media-main-vbox",
+          "vbox",
+          "hbox.zen-media-info-container.show-on-hover",
+          "vbox.zen-media-info-vbox",
+          "label.zen-media-title"
+        ]
+      }
+    ],
+    "html": "<toolbar xmlns=\"http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul\" id=\"zen-media-controls-toolbar\" class=\"browser-toolbar customization-target zen-sidebar-toolbar\" context=\"toolbar-context-menu\" mode=\"icons\" fullscreentoolbar=\"true\" brighttext=\"\" style=\"--zen-media-stack-behind: 0; --zen-media-collapsed-height: 34px; opacity: 0; transform: translateY(10px);\" hidden=\"true\"><html:template xmlns:html=\"http://www.w3.org/1999/xhtml\" id=\"zen-media-card-template\">\n    <toolbaritem class=\"zen-media-card\"><vbox class=\"zen-media-main-vbox\"><vbox><hbox class=\"zen-media-info-container show-on-hover\"><vbox class=\"zen-media-info-vbox\"><label class=\"zen-media-title\" fadein=\"true\"/><label class=\"zen-media-artist\" fadein=\"true\"/></vbox><hbox class=\"zen-media-buttons-hbox\"><toolbarbutton class=\"zen-media-pip-button toolbarbutton-1\"/><toolbarbutton class=\"zen-media-close-button toolbarbutton-1\"/></hbox></hbox><hbox class=\"zen-media-progress-hbox show-on-hover\"><label class=\"zen-media-current-time\">0:00</label><html:input type=\"range\" class=\"zen-media-progress-bar\" value=\"0\" min=\"0\" max=\"100\" step=\"0.1\" /><label class=\"zen-media-duration\">0:00</label></hbox></vbox><hbox class=\"zen-media-controls-hbox\"><toolbarbutton class=\"zen-media-focus-button toolbarbutton-1\"><box class=\"zen-media-notes\"/></toolbarbutton><hbox class=\"zen-media-playback-buttons\"><toolbarbutton class=\"zen-media-previoustrack-button toolbarbutton-1\"/><toolbarbutton class=\"zen-media-playpause-button toolbarbutton-1\"/><toolbarbutton class=\"zen-media-nexttrack-button toolbarbutton-1\"/></hbox><toolbarbutton class=\"zen-media-mute-button toolbarbutton-1\"/><hbox class=\"media-device-buttons\"><toolbarbutton class=\"zen-media-mute-mic-button toolbarbutton-1\"/><toolbarbutton class=\"zen-media-mute-camera-button toolbarbutton-1\"/></hbox></hbox></vbox></toolbaritem>\n  </html:template>\n    \n  \n    \n  \n    \n  \n    \n  \n    \n  \n    \n  \n    \n  \n    \n  \n    \n  \n    <toolbaritem class=\"zen-media-card playing\" style=\"--zen-media-card-index: 0; z-index: 100; --zen-media-card-peek-level: 0;\" hidden=\"\"><vbox class=\"zen-media-main-vbox\"><vbox><hbox class=\"zen-media-info-container show-on-hover\"><vbox class=\"zen-media-info-vbox\"><label class=\"zen-media-title\" fadein=\"true\">Flames of Fate</label><label class=\"zen-media-artist\" fadein=\"true\">DJ Noriken</label></vbox><hbox class=\"zen-media-buttons-hbox\"><toolbarbutton class=\"zen-media-pip-button toolbarbutton-1\"><image class=\"toolbarbutton-icon\"/><label class=\"toolbarbutton-text\" crop=\"end\" flex=\"1\"/></toolbarbutton><toolbarbutton class=\"zen-media-close-button toolbarbutton-1\"><image class=\"toolbarbutton-icon\"/><label class=\"toolbarbutton-text\" crop=\"end\" flex=\"1\"/></toolbarbutton></hbox></hbox><hbox class=\"zen-media-progress-hbox show-on-hover\"><label class=\"zen-media-current-time\">1:33</label><html:input xmlns:html=\"http://www.w3.org/1999/xhtml\" type=\"range\" class=\"zen-media-progress-bar\" value=\"0\" min=\"0\" max=\"100\" step=\"0.1\" /><label class=\"zen-media-duration\">3:24</label></hbox></vbox><hbox class=\"zen-media-controls-hbox\"><toolbarbutton class=\"zen-media-focus-button toolbarbutton-1\" style=\"list-style-image: url(&quot;data:image/png;base64,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&quot;);\"><image class=\"toolbarbutton-icon\"/><box class=\"zen-media-notes\"/><label class=\"toolbarbutton-text\" crop=\"end\" flex=\"1\"/></toolbarbutton><hbox class=\"zen-media-playback-buttons\"><toolbarbutton class=\"zen-media-previoustrack-button toolbarbutton-1\"><image class=\"toolbarbutton-icon\"/><label class=\"toolbarbutton-text\" crop=\"end\" flex=\"1\"/></toolbarbutton><toolbarbutton class=\"zen-media-playpause-button toolbarbutton-1\"><image class=\"toolbarbutton-icon\"/><label class=\"toolbarbutton-text\" crop=\"end\" flex=\"1\"/></toolbarbutton><toolbarbutton class=\"zen-media-nexttrack-button toolbarbutton-1\"><image class=\"toolbarbutton-icon\"/><label class=\"toolbarbutton-text\" crop=\"end\" flex=\"1\"/></toolbarbutton></hbox><toolbarbutton class=\"zen-media-mute-button toolbarbutton-1\"><image class=\"toolbarbutton-icon\"/><label class=\"toolbarbutton-text\" crop=\"end\" flex=\"1\"/></toolbarbutton><hbox class=\"media-device-buttons\"><toolbarbutton class=\"zen-media-mute-mic-button toolbarbutton-1\"><image class=\"toolbarbutton-icon\"/><label class=\"toolbarbutton-text\" crop=\"end\" flex=\"1\"/></toolbarbutton><toolbarbutton class=\"zen-media-mute-camera-button toolbarbutton-1\"><image class=\"toolbarbutton-icon\"/><label class=\"toolbarbutton-text\" crop=\"end\" flex=\"1\"/></toolbarbutton></hbox></hbox></vbox></toolbaritem>\n  </toolbar>"
+  },
+  "zenMediaController": {
+    "own": ["mediaControlBar"],
+    "prototype": [
+      "activateMediaControls",
+      "activateMediaDeviceControls",
+      "closeAllCards",
+      "constructor",
+      "frontCard",
+      "hideMediaControls",
+      "init",
+      "onAudioPlaybackStarted",
+      "onAudioPlaybackStopped",
+      "onCardDestroyed",
+      "onCardVisibilityChanged",
+      "onTabDiscardedOrClosed",
+      "showMediaControls",
+      "uninit",
+      "updateMediaSharing"
+    ]
+  },
+  "controllers": {
+    "active": [
+      {
+        "browserId": 83,
+        "host": "music.youtube.com",
+        "soundPlaying": true,
+        "id": 86,
+        "isActive": true,
+        "isPlaying": true,
+        "isAudible": true,
+        "playbackState": "playing",
+        "supportedKeys": [
+          "focus",
+          "play",
+          "pause",
+          "playpause",
+          "stop",
+          "seekto",
+          "seekforward",
+          "seekbackward",
+          "mute",
+          "unmute",
+          "setvolume",
+          "previoustrack",
+          "nexttrack"
+        ],
+        "metadata": {
+          "album": "Flames of Fate",
+          "artist": "DJ Noriken",
+          "artwork": [
+            {
+              "sizes": "60x60",
+              "src": "https://yt3.googleusercontent.com/Lvg_uD9mJb5GmIDzRxXt1nad3u3e5mRcPMnJThSjnfrYrmfhjnkZ_Fr_qqmsWN0u265RJhsyKw2mbENt=w60-h60-l90-rj",
+              "type": "image/jpeg"
+            },
+            {
+              "sizes": "120x120",
+              "src": "https://yt3.googleusercontent.com/Lvg_uD9mJb5GmIDzRxXt1nad3u3e5mRcPMnJThSjnfrYrmfhjnkZ_Fr_qqmsWN0u265RJhsyKw2mbENt=w120-h120-l90-rj",
+              "type": "image/jpeg"
+            },
+            {
+              "sizes": "226x226",
+              "src": "https://yt3.googleusercontent.com/Lvg_uD9mJb5GmIDzRxXt1nad3u3e5mRcPMnJThSjnfrYrmfhjnkZ_Fr_qqmsWN0u265RJhsyKw2mbENt=w226-h226-l90-rj",
+              "type": "image/jpeg"
+            },
+            {
+              "sizes": "544x544",
+              "src": "https://yt3.googleusercontent.com/Lvg_uD9mJb5GmIDzRxXt1nad3u3e5mRcPMnJThSjnfrYrmfhjnkZ_Fr_qqmsWN0u265RJhsyKw2mbENt=w544-h544-l90-rj",
+              "type": "image/jpeg"
+            }
+          ],
+          "title": "Flames of Fate"
+        }
+      }
+    ],
+    "inactiveCount": 15,
+    "inactiveMetadataError": {
+      "name": "NS_ERROR_NOT_AVAILABLE",
+      "message": ""
+    }
+  }
+}

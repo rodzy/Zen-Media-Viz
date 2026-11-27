@@ -9,3 +9,7 @@ Items are added as features land.
 ## Setup
 
 - [ ] The mod installs through Sine and Zen restarts without errors in the Browser Console.
+
+## Spike
+
+- [ ] Pasting the `npm run spike` snippet into the Browser Console logs `[zen-media-viz] Spike report copied to the clipboard.` and the clipboard holds the JSON report.

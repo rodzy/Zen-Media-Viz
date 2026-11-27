@@ -25,11 +25,13 @@ npm test
 | `npm run format`        | Format everything with Prettier (`format:check` only reports)       |
 | `npm run build`         | Bundle `src/` into `zen-media-viz.uc.js`                            |
 | `npm run check:bundle`  | Fail if `zen-media-viz.uc.js` doesn't match a fresh build of `src/` |
+| `npm run spike`         | Print the Browser Console snippet described in `docs/spike.md`      |
 
 ## How the code is organized
 
 - **`src/`** holds the mod's source as small ES modules.
 - **`zen-media-viz.uc.js`** at the repo root is **generated** by `npm run build`. Sine can only run a single classic `.uc.js` file and installs mods straight from the repository, so this bundle is committed. Never edit it by hand. If you change anything in `src/`, run `npm run build` and commit the result; CI fails otherwise.
+- **`spike/`** holds the read-only Browser Console snippet that records what a Zen version provides (see [`docs/spike.md`](docs/spike.md)). It isn't part of the mod.
 - **`test/`** holds the tests ([Vitest](https://vitest.dev)). Tests that need a DOM add `// @vitest-environment happy-dom` at the top of the file.
 
 ### The injected-globals rule
