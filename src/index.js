@@ -1,1 +1,3 @@
-export const MOD_NAME = "zen-media-viz";
+import { install } from "./install.js";
+
+install(window);
