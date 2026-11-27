@@ -1,9 +1,12 @@
 import { build } from "esbuild";
 import { readFile } from "node:fs/promises";
+import { fileURLToPath } from "node:url";
 
+const root = fileURLToPath(new URL(".", import.meta.url));
 const pkg = JSON.parse(await readFile(new URL("./package.json", import.meta.url), "utf8"));
 
 await build({
+  absWorkingDir: root,
   entryPoints: ["src/index.js"],
   outfile: "zen-media-viz.uc.js",
   bundle: true,
