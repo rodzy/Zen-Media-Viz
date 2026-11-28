@@ -9,7 +9,8 @@ const CARD_SELECTOR = ":scope > .zen-media-card";
 const TRACK_LABEL_SELECTOR = ".zen-media-title, .zen-media-artist";
 const STYLE_ATTRIBUTE = "zen-media-viz-style";
 const COVER_CSS_PX = 240;
-const ARTWORK_CSS_PX = { small: 48, large: COVER_CSS_PX, background: COVER_CSS_PX };
+const BACKGROUND_CSS_PX = 400;
+const ARTWORK_CSS_PX = { small: 48, large: COVER_CSS_PX, background: BACKGROUND_CSS_PX };
 const WATCHED_MUTATIONS = { childList: true, characterData: true, subtree: true };
 
 const cardsIn = (toolbar) => [...toolbar.querySelectorAll(CARD_SELECTOR)];
@@ -82,9 +83,9 @@ export function startMediaViz({ window, gBrowser, prefs }) {
     toolbar.setAttribute(STYLE_ATTRIBUTE, style);
     refresh();
   };
-  const observer = observeTrackChanges(window, toolbar, refresh);
   watchArtworkStyle(prefs, applyStyle, teardown);
   watchPixelRatio(window, refresh, teardown);
+  const observer = observeTrackChanges(window, toolbar, refresh);
   applyStyle(readArtworkStyle(prefs));
 
   return {

@@ -154,7 +154,8 @@
   var TRACK_LABEL_SELECTOR = ".zen-media-title, .zen-media-artist";
   var STYLE_ATTRIBUTE = "zen-media-viz-style";
   var COVER_CSS_PX = 240;
-  var ARTWORK_CSS_PX = { small: 48, large: COVER_CSS_PX, background: COVER_CSS_PX };
+  var BACKGROUND_CSS_PX = 400;
+  var ARTWORK_CSS_PX = { small: 48, large: COVER_CSS_PX, background: BACKGROUND_CSS_PX };
   var WATCHED_MUTATIONS = { childList: true, characterData: true, subtree: true };
   var cardsIn = (toolbar) => [...toolbar.querySelectorAll(CARD_SELECTOR)];
   var elementOf = (node) => node.nodeType === node.ELEMENT_NODE ? node : node.parentElement;
@@ -219,9 +220,9 @@
       toolbar.setAttribute(STYLE_ATTRIBUTE, style);
       refresh();
     };
-    const observer = observeTrackChanges(window2, toolbar, refresh);
     watchArtworkStyle(prefs, applyStyle, teardown);
     watchPixelRatio(window2, refresh, teardown);
+    const observer = observeTrackChanges(window2, toolbar, refresh);
     applyStyle(readArtworkStyle(prefs));
     return {
       destroy() {
