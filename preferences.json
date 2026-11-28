@@ -1,0 +1,14 @@
+[
+  {
+    "type": "dropdown",
+    "property": "zen-media-viz.artwork-style",
+    "label": "Artwork style",
+    "defaultValue": "small",
+    "placeholder": false,
+    "options": [
+      { "value": "small", "label": "Small thumbnail beside the title" },
+      { "value": "large", "label": "Large cover above the title" },
+      { "value": "background", "label": "Artwork behind the whole card" }
+    ]
+  }
+]

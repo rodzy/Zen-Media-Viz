@@ -6,30 +6,33 @@ const INFO_CONTAINER_SELECTOR = ".zen-media-info-container";
 
 const findArtwork = (card) => card.querySelector(`.${ARTWORK_CLASS}`);
 
-function createArtwork(container) {
-  const image = container.ownerDocument.createElementNS(HTML_NS, "img");
+function createArtwork(document) {
+  const image = document.createElementNS(HTML_NS, "img");
   image.className = ARTWORK_CLASS;
   image.alt = "";
   image.setAttribute("referrerpolicy", "no-referrer");
   image.addEventListener("load", () => {
     image.hidden = false;
   });
-  container.prepend(image);
   return image;
 }
+
+const artworkHost = (card, asBackground) =>
+  asBackground ? card : card.querySelector(INFO_CONTAINER_SELECTOR);
 
 export function removeArtwork(card) {
   findArtwork(card)?.remove();
 }
 
-export function showArtwork(card, src) {
+export function showArtwork(card, src, { asBackground = false } = {}) {
   if (!isUsableSrc(src)) {
     removeArtwork(card);
     return;
   }
-  const container = card.querySelector(INFO_CONTAINER_SELECTOR);
-  if (!container) return;
-  const image = findArtwork(card) ?? createArtwork(container);
+  const host = artworkHost(card, asBackground);
+  if (!host) return;
+  const image = findArtwork(card) ?? createArtwork(card.ownerDocument);
+  if (host.firstElementChild !== image) host.prepend(image);
   if (image.getAttribute("src") === src) return;
   image.hidden = true;
   image.setAttribute("src", src);

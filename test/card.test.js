@@ -128,6 +128,40 @@ describe("showArtwork", () => {
   });
 });
 
+describe("showArtwork as a background", () => {
+  it("adds the image as the first child of the card", () => {
+    const card = recordedCard();
+
+    showArtwork(card, COVER, { asBackground: true });
+
+    expect(card.firstElementChild).toBe(artworkOf(card)[0]);
+  });
+
+  it("moves the image between the card and its info container", () => {
+    const card = recordedCard();
+    showArtwork(card, COVER);
+    const [image] = artworkOf(card);
+
+    showArtwork(card, COVER, { asBackground: true });
+    const asBackground = image.parentElement;
+    showArtwork(card, COVER);
+
+    expect(asBackground).toBe(card);
+    expect(image.parentElement.classList.contains("zen-media-info-container")).toBe(true);
+    expect([...artworkOf(card)]).toEqual([image]);
+  });
+
+  it("keeps a loaded image visible when it only moves", () => {
+    const card = recordedCard();
+    showArtwork(card, COVER);
+    const image = loaded(artworkOf(card)[0]);
+
+    showArtwork(card, COVER, { asBackground: true });
+
+    expect(image.hidden).toBe(false);
+  });
+});
+
 describe("removeArtwork", () => {
   it("removes the image from the card", () => {
     const card = recordedCard();
