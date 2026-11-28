@@ -4,7 +4,7 @@
   "description": "Show the artwork or thumbnail of what you're listening to in Zen's sidebar media player, get more visual context'",
   "homepage": "https://github.com/rodzy/Zen-Media-Viz",
   "readme": "https://raw.githubusercontent.com/rodzy/Zen-Media-Viz/main/README.md",
-  "image": "https://raw.githubusercontent.com/rodzy/Zen-Media-Viz/main/assets/zen-media-viz-thumbnail-1200x800.png"
+  "image": "https://raw.githubusercontent.com/rodzy/Zen-Media-Viz/main/assets/zen-media-viz-thumbnail-1200x800.png",
   "version": "1.1.0",
   "author": "rodzy",
   "tags": ["media", "sidebar", "artwork"],
