@@ -1,14 +1,16 @@
 {
   "id": "zen-media-viz",
   "name": "Zen Media Viz",
-  "description": "Shows album artwork in Zen's sidebar media player.",
+  "description": "Show the artwork or thumbnail of what you're listening to in Zen's sidebar media player, get more visual context'",
   "homepage": "https://github.com/rodzy/Zen-Media-Viz",
   "readme": "https://raw.githubusercontent.com/rodzy/Zen-Media-Viz/main/README.md",
-  "version": "0.0.0",
+  "image": "https://raw.githubusercontent.com/rodzy/Zen-Media-Viz/main/assets/zen-media-viz-thumbnail-1200x800.png",
+  "version": "1.1.0",
   "author": "rodzy",
   "tags": ["media", "sidebar", "artwork"],
   "style": { "chrome": "chrome.css" },
   "preferences": "preferences.json",
+  "ai": "yes",
   "scripts": {
     "zen-media-viz.uc.js": {
       "include": ["chrome://browser/content/browser.xhtml"]

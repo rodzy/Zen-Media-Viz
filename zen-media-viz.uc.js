@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         Zen Media Viz
-// @version      0.0.0
+// @version      1.1.0
 // @description  A Zen Browser mod that shows album artwork in the sidebar media player.
 // @homepage     https://github.com/rodzy/Zen-Media-Viz
 // @license      MIT
