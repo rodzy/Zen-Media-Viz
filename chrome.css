@@ -1,12 +1,89 @@
-.zen-media-viz-artwork {
-  flex: none;
-  width: 36px;
-  height: 36px;
-  margin-inline-end: 8px;
-  border-radius: 4px;
-  object-fit: cover;
+#zen-media-controls-toolbar {
+  --zen-media-viz-thumbnail-size: 36px;
+  --zen-media-viz-cover-size: min(100%, 220px);
+  --zen-media-viz-background-opacity: 0.35;
+  --zen-media-viz-background-blur: 10px;
 }
 
-.zen-media-viz-artwork[hidden] {
-  display: none;
+.zen-media-viz-artwork {
+  pointer-events: none;
+  object-fit: cover;
+
+  &[hidden] {
+    display: none !important;
+  }
+}
+
+.zen-media-info-container:has(> .zen-media-viz-artwork:not([hidden])) > .zen-media-info-vbox {
+  position: relative;
+  flex: 1 1 0 !important;
+  width: auto !important;
+  min-width: 0 !important;
+
+  &::before {
+    top: 0 !important;
+    height: 100% !important;
+  }
+}
+
+#zen-media-controls-toolbar[zen-media-viz-style="small"] .zen-media-viz-artwork {
+  flex: none;
+  align-self: center;
+  width: var(--zen-media-viz-thumbnail-size);
+  height: var(--zen-media-viz-thumbnail-size);
+  margin-inline-end: 8px;
+  border-radius: 4px;
+}
+
+@container (max-width: 180px) {
+  #zen-media-controls-toolbar[zen-media-viz-style="small"] .zen-media-viz-artwork {
+    display: none;
+  }
+}
+
+#zen-media-controls-toolbar[zen-media-viz-style="large"] {
+  .zen-media-info-container {
+    flex-wrap: wrap;
+  }
+
+  &:hover .zen-media-info-container.show-on-hover {
+    max-height: calc(100cqw + 60px) !important;
+  }
+
+  .zen-media-viz-artwork {
+    flex: none;
+    width: var(--zen-media-viz-cover-size);
+    height: auto;
+    aspect-ratio: 1;
+    margin-inline: calc((100% - var(--zen-media-viz-cover-size)) / 2);
+    margin-block-end: 8px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgb(0 0 0 / 0.25);
+  }
+}
+
+#zen-media-controls-toolbar:is(
+  [zen-media-viz-style="background-blur"],
+  [zen-media-viz-style="background-sharp"]
+) {
+  .zen-media-card > .zen-media-viz-artwork {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
+    opacity: var(--zen-media-viz-background-opacity);
+  }
+
+  .zen-media-info-vbox::before {
+    display: none;
+  }
+}
+
+#zen-media-controls-toolbar[zen-media-viz-style="background-blur"]
+  .zen-media-card
+  > .zen-media-viz-artwork {
+  filter: blur(var(--zen-media-viz-background-blur)) saturate(1.3);
+  clip-path: inset(0 round var(--border-radius-medium));
 }
