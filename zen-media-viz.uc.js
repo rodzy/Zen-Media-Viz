@@ -129,8 +129,15 @@
   var ARTWORK_STYLE_PREF = "zen-media-viz.artwork-style";
   var ARTWORK_STYLES = ["small", "large", "background"];
   var DEFAULT_STYLE = "small";
+  function readStoredStyle(prefs) {
+    try {
+      return prefs.getStringPref(ARTWORK_STYLE_PREF, DEFAULT_STYLE);
+    } catch {
+      return DEFAULT_STYLE;
+    }
+  }
   function readArtworkStyle(prefs) {
-    const style = prefs.getStringPref(ARTWORK_STYLE_PREF, DEFAULT_STYLE);
+    const style = readStoredStyle(prefs);
     return ARTWORK_STYLES.includes(style) ? style : DEFAULT_STYLE;
   }
   function watchArtworkStyle(prefs, onChange, { signal }) {

@@ -40,6 +40,18 @@ describe("readArtworkStyle", () => {
   );
 });
 
+describe("readArtworkStyle with a pref of another type", () => {
+  it("falls back to the small thumbnail", () => {
+    const prefs = {
+      getStringPref: () => {
+        throw Object.assign(new Error(""), { name: "NS_ERROR_UNEXPECTED" });
+      },
+    };
+
+    expect(readArtworkStyle(prefs)).toBe("small");
+  });
+});
+
 describe("watchArtworkStyle", () => {
   it("reports the new style when the pref changes", () => {
     const prefs = fakePrefs();
