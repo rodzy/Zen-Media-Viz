@@ -8,6 +8,17 @@ A mod for the [Zen Browser](https://zen-browser.app) that shows the artwork of w
 
 https://github.com/user-attachments/assets/68f7e8ab-4f3a-414b-a75f-22cf61ced804
 
+## Install
+
+1. Install [Sine](https://github.com/CosmoCreeper/Sine).
+2. In Zen, open Settings → Sine Mods, and in Sine's settings turn on installing JS from unofficial sources.
+
+<p align="center">
+<img width="1187" height="416" alt="image" src="https://github.com/user-attachments/assets/22d465ee-97a9-4310-8584-5e73279bfe5f" />
+</p>
+
+3. Paste https://github.com/rodzy/Zen-Media-Viz into the box under the marketplace, and you're all set.
+
 ## How it works
 
 Websites report what's playing to the browser, often including album art. Zen's media player shows the title and artist but not the art. This mod is a small script, loaded by the [Sine](https://github.com/CosmoCreeper/Sine) mod manager, that reads the artwork for each playing tab and adds a thumbnail next to the title.
