@@ -1,8 +1,12 @@
+<p align="center">
+  <img src="./assets/zen-media-viz-thumbnail-600x400.png" alt="Zen Media Viz" width="600">
+</p>
+
 # Zen Media Viz
 
-A [Zen Browser](https://zen-browser.app) mod that shows the album artwork of whatever you're listening to in Zen's sidebar media player, such as songs on YouTube Music.
+A mod for the [Zen Browser](https://zen-browser.app) that shows the artwork of whatever you're listening to in Zen's sidebar media player, such as songs on YouTube Music which it was honestly the reason why I built this I wanted to see some of the sick artworks of some songs while working on my browser, also I needed some context into what media tab I wanted to switch to and what works best than having a image to quickly decide.
 
-> **Status: work in progress.** The mod doesn't do anything yet. Installation steps will be added with the first release; see [CHANGELOG.md](CHANGELOG.md) for progress.
+https://github.com/user-attachments/assets/68f7e8ab-4f3a-414b-a75f-22cf61ced804
 
 ## How it works
 
@@ -10,7 +14,7 @@ Websites report what's playing to the browser, often including album art. Zen's 
 
 ## Contributing
 
-Contributions are welcome! Read [CONTRIBUTING.md](CONTRIBUTING.md) to get set up. The project is built test-first, and every pull request runs the test suite in CI.
+Contributions are welcome if you find something or want to add support to something that you'd like! Go ahead and open the PR. Read [CONTRIBUTING.md](CONTRIBUTING.md) to get set up. The project is built test-first, and every pull request runs the test suite in CI.
 
 Please follow the [Code of Conduct](CODE_OF_CONDUCT.md), and report security problems privately as described in [SECURITY.md](SECURITY.md).
 
