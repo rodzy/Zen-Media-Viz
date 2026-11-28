@@ -18,6 +18,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - Runtime (`src/runtime.js`, `src/install.js`): watches Zen's media cards and each playing tab's metadata, and keeps every card's artwork in step with the track it shows, picking an image sized for the screen's pixel density. Disabling the mod or re-running it removes all artwork and listeners.
 - Sine manifest (`theme.json`) and a minimal `chrome.css` that sizes the thumbnail, so the mod can be installed from this repository.
 - Artwork styles, chosen under the mod's settings in Sine (`preferences.json`, pref `zen-media-viz.artwork-style`): a small thumbnail beside the title (default), a large centered cover above the title, or the artwork behind the whole card, which grows to a square on hover so the whole cover shows. Changing the style applies at once.
+- The media card's buttons show a pointer cursor.
 - The small thumbnail hides in very narrow sidebars, and artwork is fetched again at a higher resolution when the window moves to a denser screen.
 - Claude Code project skills: `unslop` (code style, summarized in the contributing guide), `mine` (attribution policy) and `ship-it` (commit, review and fix loop).
 

@@ -91,6 +91,15 @@
 
   &:hover .zen-media-card:has(> .zen-media-viz-artwork:not([hidden])) {
     min-height: 100cqw;
+
+    .zen-media-main-vbox > vbox:first-child {
+      flex: 1;
+    }
+
+    .zen-media-progress-hbox {
+      flex-grow: 0 !important;
+      margin-top: auto;
+    }
   }
 
   .zen-media-card > .zen-media-viz-artwork {
@@ -102,4 +111,8 @@
     border-radius: inherit;
     opacity: var(--zen-media-viz-background-opacity);
   }
+}
+
+#zen-media-controls-toolbar .zen-media-card toolbarbutton:not([disabled]) {
+  cursor: pointer !important;
 }
