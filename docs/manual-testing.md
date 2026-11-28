@@ -29,10 +29,9 @@ Allow JavaScript from unofficial sources in Sine's settings, install the mod fro
 
 Change **Artwork style** in the mod's settings in Sine while a track is playing. Each change should apply without reloading.
 
-- [ ] **Small thumbnail beside the title:** on hover, a small square sits left of the title. The title, artist and close button still fit, and the text's fade doesn't cover the thumbnail.
-- [ ] **Large cover above the title:** on hover, the card grows to show a centered square cover with the title and artist below it. The stack of cards still opens and closes smoothly.
-- [ ] **Blurred background:** the artwork fills the whole card, blurred and dimmed, even while the card isn't hovered. Text and buttons stay readable, and no blur spills outside the card's rounded corners.
-- [ ] **Sharp background:** same as blurred, but the cover is sharp.
+- [ ] **Small thumbnail beside the title:** on hover, a 48px square sits left of the title. The start of the title isn't covered or faded, and the artist and close button still fit.
+- [ ] **Large cover above the title:** on hover, the card grows smoothly to show a centered square cover with the title, artist and close button below it. Closing is just as smooth.
+- [ ] **Artwork behind the whole card:** the artwork sits dimmed behind the resting card. On hover the card grows to a square and the whole cover shows, with the title at the top and the controls at the bottom, all readable.
 - [ ] Switching back to the small thumbnail leaves one thumbnail per card and nothing behind the card.
 - [ ] Narrowing the sidebar until the card is very thin hides the small thumbnail instead of squeezing the title.
 - [ ] Try each style with a light and a dark Zen theme.

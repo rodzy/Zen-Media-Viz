@@ -136,20 +136,17 @@ describe("startMediaViz", () => {
     expect(toolbar.getAttribute("zen-media-viz-style")).toBe("large");
   });
 
-  it.each(["background-blur", "background-sharp"])(
-    "puts the artwork behind the whole card in the %s style",
-    (style) => {
-      const toolbar = mountToolbar();
+  it("puts the artwork behind the whole card in the background style", () => {
+    const toolbar = mountToolbar();
 
-      start([new FakeController(recorded.metadata)], fakePrefs(style));
+    start([new FakeController(recorded.metadata)], fakePrefs("background"));
 
-      expect(cardOf(toolbar).firstElementChild.classList.contains("zen-media-viz-artwork")).toBe(
-        true,
-      );
-    },
-  );
+    expect(cardOf(toolbar).firstElementChild.classList.contains("zen-media-viz-artwork")).toBe(
+      true,
+    );
+  });
 
-  it.each(["large", "background-blur"])("picks a cover-sized image in the %s style", (style) => {
+  it.each(["large", "background"])("picks a cover-sized image in the %s style", (style) => {
     const toolbar = mountToolbar();
     vi.spyOn(window, "devicePixelRatio", "get").mockReturnValue(1);
 
@@ -163,9 +160,9 @@ describe("startMediaViz", () => {
     const prefs = fakePrefs();
     start([new FakeController(recorded.metadata)], prefs);
 
-    prefs.setStyle("background-sharp");
+    prefs.setStyle("background");
 
-    expect(toolbar.getAttribute("zen-media-viz-style")).toBe("background-sharp");
+    expect(toolbar.getAttribute("zen-media-viz-style")).toBe("background");
     expect(cardOf(toolbar).firstElementChild.classList.contains("zen-media-viz-artwork")).toBe(
       true,
     );

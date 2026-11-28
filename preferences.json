@@ -8,8 +8,7 @@
     "options": [
       { "value": "small", "label": "Small thumbnail beside the title" },
       { "value": "large", "label": "Large cover above the title" },
-      { "value": "background-blur", "label": "Blurred background" },
-      { "value": "background-sharp", "label": "Sharp background" }
+      { "value": "background", "label": "Artwork behind the whole card" }
     ]
   }
 ]

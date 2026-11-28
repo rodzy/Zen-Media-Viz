@@ -1,5 +1,5 @@
 export const ARTWORK_STYLE_PREF = "zen-media-viz.artwork-style";
-export const ARTWORK_STYLES = ["small", "large", "background-blur", "background-sharp"];
+export const ARTWORK_STYLES = ["small", "large", "background"];
 const DEFAULT_STYLE = "small";
 
 export function readArtworkStyle(prefs) {

@@ -32,9 +32,12 @@ describe("readArtworkStyle", () => {
     expect(readArtworkStyle(fakePrefs({ [ARTWORK_STYLE_PREF]: style }))).toBe(style);
   });
 
-  it("falls back to the small thumbnail for an unknown style", () => {
-    expect(readArtworkStyle(fakePrefs({ [ARTWORK_STYLE_PREF]: "huge" }))).toBe("small");
-  });
+  it.each(["huge", "background-blur"])(
+    "falls back to the small thumbnail for the unknown style %s",
+    (style) => {
+      expect(readArtworkStyle(fakePrefs({ [ARTWORK_STYLE_PREF]: style }))).toBe("small");
+    },
+  );
 });
 
 describe("watchArtworkStyle", () => {

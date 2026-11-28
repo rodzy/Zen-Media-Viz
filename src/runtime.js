@@ -9,12 +9,7 @@ const CARD_SELECTOR = ":scope > .zen-media-card";
 const TRACK_LABEL_SELECTOR = ".zen-media-title, .zen-media-artist";
 const STYLE_ATTRIBUTE = "zen-media-viz-style";
 const COVER_CSS_PX = 240;
-const ARTWORK_CSS_PX = {
-  small: 36,
-  large: COVER_CSS_PX,
-  "background-blur": COVER_CSS_PX,
-  "background-sharp": COVER_CSS_PX,
-};
+const ARTWORK_CSS_PX = { small: 48, large: COVER_CSS_PX, background: COVER_CSS_PX };
 const WATCHED_MUTATIONS = { childList: true, characterData: true, subtree: true };
 
 const cardsIn = (toolbar) => [...toolbar.querySelectorAll(CARD_SELECTOR)];
@@ -24,12 +19,10 @@ function isTrackChange(toolbar, { target }) {
   return target === toolbar || Boolean(elementOf(target)?.closest(TRACK_LABEL_SELECTOR));
 }
 
-const isBackgroundStyle = (style) => style.startsWith("background-");
-
 function renderArtwork(cards, sessions, { style, pixelRatio }) {
   const matches = matchCards(cards, sessions);
   const minPx = ARTWORK_CSS_PX[style] * pixelRatio;
-  const asBackground = isBackgroundStyle(style);
+  const asBackground = style === "background";
   for (const card of cards) {
     const artwork = matches.get(card)?.metadata.artwork ?? [];
     showArtwork(card, pickArtwork(artwork, { minPx }), { asBackground });
