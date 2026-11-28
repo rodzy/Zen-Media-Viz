@@ -12,7 +12,7 @@ describe("theme.json", () => {
   });
 
   it("points at files that exist in the repository", () => {
-    const paths = [...Object.keys(theme.scripts), theme.style.chrome];
+    const paths = [...Object.keys(theme.scripts), theme.style.chrome, theme.preferences];
 
     expect(paths.filter((path) => !existsSync(repoFile(path)))).toEqual([]);
   });

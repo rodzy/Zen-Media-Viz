@@ -8,6 +8,7 @@
   "author": "rodzy",
   "tags": ["media", "sidebar", "artwork"],
   "style": { "chrome": "chrome.css" },
+  "preferences": "preferences.json",
   "scripts": {
     "zen-media-viz.uc.js": {
       "include": ["chrome://browser/content/browser.xhtml"]

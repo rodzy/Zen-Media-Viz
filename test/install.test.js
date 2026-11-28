@@ -18,7 +18,16 @@ function mountToolbar() {
 const artworkCount = () => document.querySelectorAll(".zen-media-viz-artwork").length;
 
 function fakeWindow(overrides = {}) {
-  return Object.assign(Object.create(window), { gBrowser: { tabs: [playingTab()] } }, overrides);
+  const prefs = {
+    getStringPref: (name, fallback) => fallback,
+    addObserver: () => {},
+    removeObserver: () => {},
+  };
+  return Object.assign(
+    Object.create(window),
+    { gBrowser: { tabs: [playingTab()] }, Services: { prefs } },
+    overrides,
+  );
 }
 
 afterEach(() => {

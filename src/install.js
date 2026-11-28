@@ -12,7 +12,11 @@ function destroyPrevious(window) {
 export function install(window) {
   destroyPrevious(window);
   try {
-    const mediaViz = startMediaViz({ window, gBrowser: window.gBrowser });
+    const mediaViz = startMediaViz({
+      window,
+      gBrowser: window.gBrowser,
+      prefs: window.Services.prefs,
+    });
     const handle = {
       destroy() {
         mediaViz.destroy();

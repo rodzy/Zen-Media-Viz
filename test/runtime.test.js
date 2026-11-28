@@ -1,6 +1,7 @@
 // @vitest-environment happy-dom
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { startMediaViz } from "../src/runtime.js";
+import { ARTWORK_STYLE_PREF } from "../src/settings.js";
 import report from "./fixtures/zen-1.24.3b.json" with { type: "json" };
 
 const [recorded] = report.controllers.active;
@@ -54,8 +55,35 @@ function addCard(toolbar, title, artist) {
 
 let running = null;
 
-function start(controllers) {
-  running = startMediaViz({ window, gBrowser: { tabs: controllers.map(tab) } });
+function fakePrefs(style) {
+  let observer = null;
+  return {
+    getStringPref: (name, fallback) => style ?? fallback,
+    addObserver: (name, added) => {
+      observer = added;
+    },
+    removeObserver: () => {
+      observer = null;
+    },
+    setStyle(next) {
+      style = next;
+      observer?.observe(null, "nsPref:changed", ARTWORK_STYLE_PREF);
+    },
+  };
+}
+
+function fakeMediaQueries() {
+  const queries = [];
+  vi.spyOn(window, "matchMedia").mockImplementation((media) => {
+    const query = Object.assign(new EventTarget(), { media, matches: true });
+    queries.push(query);
+    return query;
+  });
+  return queries;
+}
+
+function start(controllers, prefs = fakePrefs()) {
+  running = startMediaViz({ window, gBrowser: { tabs: controllers.map(tab) }, prefs });
   return running;
 }
 
@@ -85,6 +113,62 @@ describe("startMediaViz", () => {
     start([new FakeController(recorded.metadata)]);
 
     expect(artworkSrc(cardOf(toolbar))).toContain(size);
+  });
+
+  it("asks for a sharper image again when the window moves to a denser screen", () => {
+    const toolbar = mountToolbar();
+    const queries = fakeMediaQueries();
+    const ratio = vi.spyOn(window, "devicePixelRatio", "get").mockReturnValue(1);
+    start([new FakeController(recorded.metadata)]);
+
+    ratio.mockReturnValue(4);
+    queries.at(-1).dispatchEvent(new Event("change"));
+
+    expect(artworkSrc(cardOf(toolbar))).toContain("=w226-h226");
+    expect(queries.at(-1).media).toBe("(resolution: 4dppx)");
+  });
+
+  it("marks the toolbar with the chosen artwork style", () => {
+    const toolbar = mountToolbar();
+
+    start([], fakePrefs("large"));
+
+    expect(toolbar.getAttribute("zen-media-viz-style")).toBe("large");
+  });
+
+  it.each(["background-blur", "background-sharp"])(
+    "puts the artwork behind the whole card in the %s style",
+    (style) => {
+      const toolbar = mountToolbar();
+
+      start([new FakeController(recorded.metadata)], fakePrefs(style));
+
+      expect(cardOf(toolbar).firstElementChild.classList.contains("zen-media-viz-artwork")).toBe(
+        true,
+      );
+    },
+  );
+
+  it.each(["large", "background-blur"])("picks a cover-sized image in the %s style", (style) => {
+    const toolbar = mountToolbar();
+    vi.spyOn(window, "devicePixelRatio", "get").mockReturnValue(1);
+
+    start([new FakeController(recorded.metadata)], fakePrefs(style));
+
+    expect(artworkSrc(cardOf(toolbar))).toContain("=w544-h544");
+  });
+
+  it("restyles the cards when the artwork style setting changes", () => {
+    const toolbar = mountToolbar();
+    const prefs = fakePrefs();
+    start([new FakeController(recorded.metadata)], prefs);
+
+    prefs.setStyle("background-sharp");
+
+    expect(toolbar.getAttribute("zen-media-viz-style")).toBe("background-sharp");
+    expect(cardOf(toolbar).firstElementChild.classList.contains("zen-media-viz-artwork")).toBe(
+      true,
+    );
   });
 
   it("updates the artwork when the tab's metadata changes", () => {
@@ -170,6 +254,36 @@ describe("startMediaViz", () => {
 });
 
 describe("destroy", () => {
+  it("removes the style mark from the toolbar", () => {
+    const toolbar = mountToolbar();
+
+    start([], fakePrefs("large")).destroy();
+
+    expect(toolbar.hasAttribute("zen-media-viz-style")).toBe(false);
+  });
+
+  it("stops reacting to the artwork style setting", () => {
+    const toolbar = mountToolbar();
+    const prefs = fakePrefs();
+    start([], prefs).destroy();
+
+    prefs.setStyle("large");
+
+    expect(toolbar.hasAttribute("zen-media-viz-style")).toBe(false);
+  });
+
+  it("stops reacting to pixel density changes", () => {
+    mountToolbar();
+    const queries = fakeMediaQueries();
+    const controller = new FakeController(recorded.metadata);
+    start([controller]).destroy();
+    const getMetadata = vi.spyOn(controller, "getMetadata");
+
+    queries.at(-1).dispatchEvent(new Event("change"));
+
+    expect(getMetadata).not.toHaveBeenCalled();
+  });
+
   it("removes the artwork from every card", () => {
     const toolbar = mountToolbar();
     const viz = start([new FakeController(track("Flames of Fate", "DJ Noriken"))]);
